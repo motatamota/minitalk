@@ -17,11 +17,11 @@ $(CLIENT): $(COBJ) $(PLIBA)
 $(SERVER): $(SOBJ)
 	$(CC) $(CFLAGS) $(SOBJ) $(PLIBA) -o $(SERVER)
 
-$(PLIBA)
+$(PLIBA):
 	make -C printf
 
-bonus: all
-	touch bounus
+bonus: $(CLIENT) $(SERVER)
+	touch bonus
 
 server_src/%.o: server_src/%.c
 	$(CC) $(CFLAGS) -I $(INCDIR) -c $< -o $@
@@ -31,11 +31,10 @@ client_src/%.o: client_src/%.c
 
 clean:
 	rm -f $(COBJ) $(SOBJ) bonus
-	make -C printf clean
+	make -C printf fclean
 
 fclean: clean
 	rm -f client server
-	make -C printf fclean
 
 re: fclean all
 
