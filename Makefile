@@ -1,8 +1,8 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 INCDIR = includes
-SSRC = $(wildcard server_src/*.c)
-CSRC = $(wildcard client_src/*.c)
+SSRC = server_src/byte.c server_src/main.c server_src/main2.c
+CSRC = client_src/main.c
 SOBJ = $(SSRC:%.c=%.o)
 COBJ = $(CSRC:%.c=%.o)
 CLIENT = client
