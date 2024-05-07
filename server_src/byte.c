@@ -14,37 +14,37 @@
 
 void	byte1(t_signal *signal)
 {
-	if (g_ans == 0)
+	if (signal->ans == 0)
 	{
 		signal->ch2 = 0;
 		return ;
 	}
-	write(1, (unsigned char *)&g_ans, 1);
+	write(1, (unsigned char *)&signal->ans, 1);
 }
 
 void	byte2(t_signal *signal)
 {
-	write(1, (unsigned char *)&g_ans, 1);
+	write(1, (unsigned char *)&signal->ans, 1);
 	get_byte(signal);
-	write(1, (unsigned char *)&g_ans, 1);
+	write(1, (unsigned char *)&signal->ans, 1);
 }
 
 void	byte3(t_signal *signal)
 {
-	write(1, (unsigned char *)&g_ans, 1);
+	write(1, (unsigned char *)&signal->ans, 1);
 	get_byte(signal);
-	write(1, (unsigned char *)&g_ans, 1);
+	write(1, (unsigned char *)&signal->ans, 1);
 	get_byte(signal);
-	write(1, (unsigned char *)&g_ans, 1);
+	write(1, (unsigned char *)&signal->ans, 1);
 }
 
 void	byte4(t_signal *signal)
 {
-	write(1, (unsigned char *)&g_ans, 1);
+	write(1, (unsigned char *)&signal->ans, 1);
 	get_byte(signal);
-	write(1, (unsigned char *)&g_ans, 1);
+	write(1, (unsigned char *)&signal->ans, 1);
 	get_byte(signal);
-	write(1, (unsigned char *)&g_ans, 1);
+	write(1, (unsigned char *)&signal->ans, 1);
 	get_byte(signal);
-	write(1, (unsigned char *)&g_ans, 1);
+	write(1, (unsigned char *)&signal->ans, 1);
 }

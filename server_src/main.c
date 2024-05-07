@@ -12,7 +12,6 @@
 
 #include "minitalk.h"
 
-volatile sig_atomic_t	g_ans = 0;
 volatile sig_atomic_t	g_pid = 0;
 
 void	display_pid(int process_id)
@@ -36,11 +35,12 @@ int	main(void)
 	t_signal			signal;
 	pid_t				pd;
 
-	pd = getpid();
-	display_pid(pd);
-	set_act();
 	signal.ch = 0;
 	signal.ch2 = 0;
+	signal.ans = 0;
+	pd = getpid();
+	display_pid(pd);
+	set_act(&signal);
 	while (1)
 	{
 		pd = ccal(&signal);
