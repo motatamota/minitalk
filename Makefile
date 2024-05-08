@@ -20,7 +20,7 @@ $(SERVER): $(SOBJ)
 $(PLIBA):
 	make -C printf
 
-bonus: $(CLIENT) $(SERVER)
+bonus: all
 	touch bonus
 
 server_src/%.o: server_src/%.c

@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-volatile sig_atomic_t	g_pid = 0;
+t_signal	g_signal;
 
 void	display_pid(int process_id)
 {
@@ -32,24 +32,23 @@ void	display_pid(int process_id)
 
 int	main(void)
 {
-	t_signal			signal;
 	pid_t				pd;
 
-	signal.ch = 0;
-	signal.ch2 = 0;
-	signal.ans = 0;
+	g_signal.ch = 0;
+	g_signal.ch2 = 0;
+	g_signal.ans = 0;
 	pd = getpid();
 	display_pid(pd);
-	set_act(&signal);
+	set_act();
 	while (1)
 	{
-		pd = ccal(&signal);
+		pd = ccal();
 		if (pd == -1)
 		{
-			kill(g_pid, SIGUSR1);
+			kill(g_signal.pid, SIGUSR1);
 			write(1, "\n", 1);
-			signal.ch = 0;
-			signal.ch2 = 0;
+			g_signal.ch = 0;
+			g_signal.ch2 = 0;
 		}
 	}
 }

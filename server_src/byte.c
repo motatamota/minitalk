@@ -12,39 +12,41 @@
 
 #include "minitalk.h"
 
-void	byte1(t_signal *signal)
+extern t_signal	g_signal;
+
+void	byte1(void)
 {
-	if (signal->ans == 0)
+	if (g_signal.ans == 0)
 	{
-		signal->ch2 = 0;
+		g_signal.ch2 = 0;
 		return ;
 	}
-	write(1, (unsigned char *)&signal->ans, 1);
+	write(1, (unsigned char *)&g_signal.ans, 1);
 }
 
-void	byte2(t_signal *signal)
+void	byte2(void)
 {
-	write(1, (unsigned char *)&signal->ans, 1);
-	get_byte(signal);
-	write(1, (unsigned char *)&signal->ans, 1);
+	write(1, (unsigned char *)&g_signal.ans, 1);
+	get_byte();
+	write(1, (unsigned char *)&g_signal.ans, 1);
 }
 
-void	byte3(t_signal *signal)
+void	byte3(void)
 {
-	write(1, (unsigned char *)&signal->ans, 1);
-	get_byte(signal);
-	write(1, (unsigned char *)&signal->ans, 1);
-	get_byte(signal);
-	write(1, (unsigned char *)&signal->ans, 1);
+	write(1, (unsigned char *)&g_signal.ans, 1);
+	get_byte();
+	write(1, (unsigned char *)&g_signal.ans, 1);
+	get_byte();
+	write(1, (unsigned char *)&g_signal.ans, 1);
 }
 
-void	byte4(t_signal *signal)
+void	byte4(void)
 {
-	write(1, (unsigned char *)&signal->ans, 1);
-	get_byte(signal);
-	write(1, (unsigned char *)&signal->ans, 1);
-	get_byte(signal);
-	write(1, (unsigned char *)&signal->ans, 1);
-	get_byte(signal);
-	write(1, (unsigned char *)&signal->ans, 1);
+	write(1, (unsigned char *)&g_signal.ans, 1);
+	get_byte();
+	write(1, (unsigned char *)&g_signal.ans, 1);
+	get_byte();
+	write(1, (unsigned char *)&g_signal.ans, 1);
+	get_byte();
+	write(1, (unsigned char *)&g_signal.ans, 1);
 }

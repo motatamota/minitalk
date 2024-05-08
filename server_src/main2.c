@@ -12,29 +12,25 @@
 
 #include "minitalk.h"
 
-void	handler_sigusr1(int sig, siginfo_t *si, void *signal)
-{
-	t_signal	*ss;
+extern t_signal	g_signal;
 
-	ss = (t_signal *)signal;
+void	handler_sigusr1(int sig, siginfo_t *si, void *unused)
+{
 	(void)sig;
-	ss->ans = ss->ans * 2;
-	g_pid = si->si_pid;
+	(void)unused;
+	g_signal.ans = g_signal.ans * 2;
+	g_signal.pid = si->si_pid;
 }
 
-void	handler_sigusr2(int sig, siginfo_t *si, void *signal)
+void	handler_sigusr2(int sig, siginfo_t *si, void *unused)
 {
-	t_signal	*ss;
-
 	(void)si;
-	ss = (t_signal *)signal;
-	printf("test%p\n", &ss->ans);
+	(void)unused;
 	(void)sig;
-	ss->ans = ss->ans * 2 + 1;
-	printf("aaaaa%d\n", ss->ans);
+	g_signal.ans = g_signal.ans * 2 + 1;
 }
 
-void	set_act(t_signal *signal)
+void	set_act(void)
 {
 	struct sigaction	sig1;
 	struct sigaction	sig2;
@@ -45,38 +41,37 @@ void	set_act(t_signal *signal)
 	sigemptyset(&sig2.sa_mask);
 	sig2.sa_sigaction = handler_sigusr2;
 	sig2.sa_flags = SA_SIGINFO;
-	sigaction(SIGUSR1, &sig1, (void *)signal);
-	sigaction(SIGUSR2, &sig2, (void *)signal);
+	sigaction(SIGUSR1, &sig1, NULL);
+	sigaction(SIGUSR2, &sig2, NULL);
 }
 
-void	get_byte(t_signal *signal)
+void	get_byte(void)
 {
 	int	n;
 
 	n = 0;
-	signal->ans = 0;
+	g_signal.ans = 0;
 	while (n < 8)
 	{
 		pause();
-		printf("???%d\n", signal->ans);
-		signal->ch = 1;
-		signal->ch2 = 1;
+		g_signal.ch = 1;
+		g_signal.ch2 = 1;
 		n++;
 	}
 }
 
-int	ccal(t_signal *signal)
+int	ccal(void)
 {
-	get_byte(signal);
-	if (signal->ans == 0)
+	get_byte();
+	if (g_signal.ans == 0)
 		return (-1);
-	if (signal->ans < 192)
-		byte1(signal);
-	else if (signal->ans < 224)
-		byte2(signal);
-	else if (signal->ans < 240)
-		byte3(signal);
+	if (g_signal.ans < 192)
+		byte1();
+	else if (g_signal.ans < 224)
+		byte2();
+	else if (g_signal.ans < 240)
+		byte3();
 	else
-		byte4(signal);
+		byte4();
 	return (0);
 }
